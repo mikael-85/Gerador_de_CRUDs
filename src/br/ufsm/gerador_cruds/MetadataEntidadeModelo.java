@@ -13,27 +13,27 @@ import java.util.ArrayList;
  */
 public class MetadataEntidadeModelo {
     private String nomeEntidade;
-    private ArrayList<MetadataAtributoModelo> atributoEntidade;
+    private ArrayList<MetadataAtributoModelo> atributosEntidade;
 
     public MetadataEntidadeModelo(){
         this.nomeEntidade = null;
-        this.atributoEntidade = new ArrayList<MetadataAtributoModelo>(); 
+        this.atributosEntidade = new ArrayList<MetadataAtributoModelo>(); 
     }
     
     public MetadataEntidadeModelo(String nomeEntidade){
         this.nomeEntidade = nomeEntidade;
-        this.atributoEntidade = new ArrayList<MetadataAtributoModelo>();
+        this.atributosEntidade = new ArrayList<MetadataAtributoModelo>();
         
     }
     
     public void adicionarAtributo (MetadataAtributoModelo atributo){
-        this.atributoEntidade.add(atributo);
+        this.atributosEntidade.add(atributo);
     }
     
     public void adicionarAtributo(String nomeAtributo, String tipoAtrbuto, int tamanhoAtributo, Tipo valor){
         MetadataAtributoModelo novoAtributo;
         novoAtributo = new MetadataAtributoModelo(nomeAtributo, tipoAtrbuto, tamanhoAtributo, valor);
-        this.atributoEntidade.add(novoAtributo);
+        this.atributosEntidade.add(novoAtributo);
     }
 
     public String getNomeEntidade() {
@@ -44,12 +44,12 @@ public class MetadataEntidadeModelo {
         this.nomeEntidade = nomeEntidade;
     }
 
-    public ArrayList<MetadataAtributoModelo> getAtributoEntidade() {
-        return atributoEntidade;
+    public ArrayList<MetadataAtributoModelo> getAtributosEntidade() {
+        return atributosEntidade;
     }
 
-    public void setAtributoEntidade(ArrayList<MetadataAtributoModelo> atributoEntidade) {
-        this.atributoEntidade = atributoEntidade;
+    public void setAtributosEntidade(ArrayList<MetadataAtributoModelo> atributosEntidade) {
+        this.atributosEntidade = atributosEntidade;
     }
     
     

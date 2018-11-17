@@ -9,6 +9,10 @@ package br.ufsm.gerador_cruds;
  *
  * @author mikae
  */
-public class EntendidadeExemplo {
-    
+public interface EntendidadeExemplo {
+    public void cadastrar();
+    public void alterar();
+    public void remover();
+    public void pesquisar();
+    public void imprimirTodos();
 }

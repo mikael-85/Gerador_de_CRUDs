@@ -9,6 +9,7 @@ package br.ufsm.gerador_cruds;
  *
  * @author mikae
  */
-public class EntidadeModelo {
-    
+public interface EntidadeModelo {
+    @Override
+    public String toString();
 }

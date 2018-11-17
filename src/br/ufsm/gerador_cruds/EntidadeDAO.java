@@ -5,10 +5,16 @@
  */
 package br.ufsm.gerador_cruds;
 
+import java.util.List;
+
 /**
  *
  * @author mikae
  */
-public class EntidadeDAO {
-    
+public interface EntidadeDAO {
+    public void cadastrar (Object obj);
+    public void alterar (Object obj);
+    public void remover (Object obj);
+    public Object pesquisar(Object obj);
+    public List<Object> imprimirTodos(); //algum tipo collection, etc...
 }

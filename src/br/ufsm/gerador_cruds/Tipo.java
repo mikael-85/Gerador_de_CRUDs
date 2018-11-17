@@ -9,6 +9,25 @@ package br.ufsm.gerador_cruds;
  *
  * @author mikae
  */
-public class Tipo {
-    
+public class Tipo<T> {
+
+    private T valor;
+
+    public Tipo(T valor) {
+        this.valor = valor;
+    }
+
+    public T getValor() {
+        return valor;
+    }
+
+    public void setValor(T valor) {
+        this.valor = valor;
+    }
+       
+    @Override
+    public String toString(){
+        return String.valueOf(this.valor);
+    }
+
 }

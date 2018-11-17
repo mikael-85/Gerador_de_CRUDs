@@ -5,10 +5,27 @@
  */
 package br.ufsm.gerador_cruds;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author mikae
  */
 public class Principal {
+    private ManipulaArquivos manipulaArquivos;
+    public ArrayList<String> classesCriadas;
+    private Metadata metadata;
+    
+    public Principal(){
+        this.manipulaArquivos  = new ManipulaArquivos();
+        this.classesCriadas = this.manipulaArquivos.LeituraArquivo("classesCriadas.txt");
+        if (this.classesCriadas != null){
+            //fazer, teste... 
+        }else{
+            this.classesCriadas = new ArrayList<>();
+            this.manipulaArquivos.gravarNoFinalDoArquivo("classesCriadas.txt",null);
+        }
+        this.metadata = new Metadata();
+    }
     
 }
