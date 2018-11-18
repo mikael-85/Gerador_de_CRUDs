@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Patrick Guerra
+ * @author Mikael
  */
 public class Principal {
     // Esta classe sera instanciada na classe Inicial, no main 

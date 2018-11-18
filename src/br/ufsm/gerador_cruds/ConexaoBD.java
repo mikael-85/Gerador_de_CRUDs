@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author mikae
+ * @author Mikael
  */
 public class ConexaoBD {
     private final String JDBC_DRIVER = "org.postgresql.Driver";

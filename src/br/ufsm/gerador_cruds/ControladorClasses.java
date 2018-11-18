@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Patrick Guerra
+ * @author Mikael
  */
 public class ControladorClasses {
     private ArrayList<MetadataEntidadeModelo> tabelas;

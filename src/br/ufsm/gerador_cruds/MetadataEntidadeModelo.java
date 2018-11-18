@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author mikae
+ * @author Mikael
  */
 public class MetadataEntidadeModelo {
     private String nomeEntidade;

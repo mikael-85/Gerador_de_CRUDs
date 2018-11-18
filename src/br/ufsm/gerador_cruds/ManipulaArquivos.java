@@ -17,7 +17,7 @@ import java.io.IOException;
 
 /**
  *
- * @author Patrick Guerra
+ * @author Mikael
  */
 public class ManipulaArquivos {
     public String caminho;

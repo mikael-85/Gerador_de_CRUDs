@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author mikae
+ * @author Mikael
  */
 public class Metadata {
 

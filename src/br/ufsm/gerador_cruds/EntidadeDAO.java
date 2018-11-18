@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author mikae
+ * @author Mikael
  */
 public interface EntidadeDAO {
     public void cadastrar (Object obj);

@@ -8,7 +8,7 @@ package br.ufsm.gerador_cruds;
 
 /**
  *
- * @author Patrick Guerra
+ * @author Mikael
  */
 public class CriaClasseDAO implements Runnable {
     @Override

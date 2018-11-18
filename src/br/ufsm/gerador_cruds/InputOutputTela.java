@@ -7,7 +7,7 @@ package br.ufsm.gerador_cruds;
 
 /**
  *
- * @author mikae
+ * @author Mikael
  */
 public class InputOutputTela {
     
