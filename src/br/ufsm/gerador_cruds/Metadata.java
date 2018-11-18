@@ -143,5 +143,10 @@ public class Metadata {
         }
         return novoTipo;
     }
+
+    public ArrayList<MetadataEntidadeModelo> getTabelas() {
+        return tabelas;
+    }
+
 }
 
