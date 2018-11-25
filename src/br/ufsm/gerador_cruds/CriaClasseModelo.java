@@ -28,19 +28,7 @@ public class CriaClasseModelo implements Runnable {
     }
     
         
-    public String tipoToString(Object obj){
-        String tipo = "";
-        if(obj instanceof String){
-            tipo = "String";
-        }else if(obj instanceof Integer){
-            tipo = "Integer";
-        }else if(obj instanceof Long){
-            tipo = "Long";
-        }else if(obj instanceof Double){
-            tipo = "Double";
-        }
-        return tipo;
-    }
+    
     
     @Override
     public void run () {
@@ -49,7 +37,7 @@ public class CriaClasseModelo implements Runnable {
         this.linhas.add("public class " + classe + "Modelo implements EntidadeModelo {");
         this.linhas.add("/* Atributos */");
         for (MetadataAtributoModelo atributoAtual : this.tabela.getAtributosEntidade()) {
-            this.linhas.add("private " + tipoToString(atributoAtual.getValor())  + 
+            this.linhas.add("private " + atributoAtual.tipoToString() + 
                     " " + atributoAtual.getNomeAtributo() + ";"
             );
         }
@@ -58,7 +46,7 @@ public class CriaClasseModelo implements Runnable {
         for (MetadataAtributoModelo atributoAtual : this.tabela.getAtributosEntidade()) {
             
             // get
-            this.linhas.add("public " + tipoToString(atributoAtual.getValor()) + 
+            this.linhas.add("public " + atributoAtual.tipoToString() + 
                     " get" + atributoAtual.getNomeAtributo() + "() {"
             );
             this.linhas.add("    return this." + atributoAtual.getNomeAtributo()+";");
@@ -68,7 +56,7 @@ public class CriaClasseModelo implements Runnable {
             // set  
             this.linhas.add("public void " +
                     "set" + atributoAtual.getNomeAtributo() + "(" +
-                    tipoToString(atributoAtual.getValor())
+                    atributoAtual.tipoToString()
                     + " " + atributoAtual.getNomeAtributo() + ") {"
             );
             this.linhas.add("    this." + atributoAtual.getNomeAtributo()+

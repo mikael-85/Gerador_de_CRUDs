@@ -11,10 +11,10 @@ import java.util.ArrayList;
  *
  * @author Mikael
  */
-public interface EntidadeDAO {
-    public void cadastrar (Object obj);
-    public void alterar (Object obj);
-    public void remover (Object obj);
-    public ArrayList<Object> pesquisar(Object obj);
-    public ArrayList<Object> imprimirTodos(); //algum tipo collection, etc...
+public interface EntidadeDAO<T> {
+    public void cadastrar (T obj);
+    public void alterar (T obj);
+    public void remover (T obj);
+    public ArrayList<T> pesquisar(T obj);
+    public ArrayList<T> imprimirTodos(); //algum tipo collection, etc...
 }

@@ -51,9 +51,18 @@ public class CriaClassesEntidade implements Runnable {
                 this.manipulaArquivos
         );
         Thread threadCriaModelo = new Thread(classeModelo);
-        
+
+        // Contruido classe Modelo, passando o cabecalho e os dados da entidade
+        CriaClasseDAO classeDAO = new CriaClasseDAO(
+                this.tabela, 
+                this.cabecalho,
+                this.manipulaArquivos
+        );
+        Thread threadCriaDAO = new Thread(classeDAO);
+                
         // Executando as Threads
         threadCriaModelo.start();
+        threadCriaDAO.start();
     }    
 
 }
