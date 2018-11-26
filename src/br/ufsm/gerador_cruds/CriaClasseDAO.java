@@ -37,12 +37,19 @@ public class CriaClasseDAO implements Runnable {
         this.linhas.add("import java.sql.PreparedStatement;");
         this.linhas.add("import java.sql.SQLException;");
         this.linhas.add("import java.util.ArrayList;");
+        this.linhas.add("import java.sql.ResultSet;");
         this.linhas.add("");// quebra de linha  
         
         String classe = this.tabela.getNomeEntidade();
         classe = classe.substring(0,1).toUpperCase().concat(classe.substring(1));
         this.linhas.add("public class " + classe + "DAO implements EntidadeDAO<"+classe+"Modelo> (");
-        this.linhas.add("private ConexaoBD bd = new ConexaoBD();");
+        this.linhas.add("private ConexaoBD bd;");
+        this.linhas.add("private InputOutputTela tela;");
+        this.linhas.add("");
+        this.linhas.add("public " + classe +"DAO( inputOutputTela tela){");
+        this.linhas.add("   this.bd = new ConexaoBD");
+        this.linhas.add("   this.tela = tela;");
+        this.linhas.add("}");// fim da classe
         this.linhas.add("");// quebra de linha                
         this.linhas.add("@Override");
         this.linhas.add("public void cadastrar{" + classe + "Modelo "+this.tabela.getNomeEntidade() + "){");
@@ -75,8 +82,10 @@ public class CriaClasseDAO implements Runnable {
         }
         
         this.linhas.add("       sql.execute();");
+        this.linhas.add("       this.tela.sucessoCadastro();");
         this.linhas.add("       sql.close();");
         this.linhas.add("       conexao.close();");
+        
         this.linhas.add("   } catch (SQLException ex)  {");
         this.linhas.add("       System.err.println(ex.getMessage());");
               
@@ -127,34 +136,124 @@ public class CriaClasseDAO implements Runnable {
            
         
         this.linhas.add("       sql.execute();");
+        this.linhas.add("       this.tela.sucessoAlteracao();");
         this.linhas.add("       sql.close();");
         this.linhas.add("       conexao.close();");
         this.linhas.add("   } catch (SQLException ex)  {");
         this.linhas.add("       System.err.println(ex.getMessage());");
               
         this.linhas.add("   }");
-        
         this.linhas.add("}");
         this.linhas.add("");// quebra de linha
+     
         this.linhas.add("@Override");
         this.linhas.add("public void remover{" + classe + "Modelo "+this.tabela.getNomeEntidade() + "){");
-        
+            this.linhas.add("   try {");
+            this.linhas.add("       Connection conexao = this.bd.getConexao();");
+            this.linhas.add("       PreparedStatement sql = conexao.prepareStatement(");
+            this.linhas.add("       \"DELETE FROM "+this.tabela.getNomeEntidade()+ " WHERE "
+                +this.tabela.getAtributosEntidade().get(0).getNomeAtributo()
+                +" = ?\");"
+            );
+            this.linhas.add("      sql.set"+
+                ((this.tabela.getAtributosEntidade().get(0).tipoToString().compareTo("Integer") == 0)? "Int" : 
+                this.tabela.getAtributosEntidade().get(0).tipoToString())
+                + "(1, " + this.tabela.getNomeEntidade() + ".get" +
+                this.tabela.getAtributosEntidade().get(0).getNomeAtributo()+ "());"
+            );
+            
+
+            this.linhas.add("       sql.execute();");
+            this.linhas.add("       this.tela.sucessoExclusao();");
+            this.linhas.add("       sql.close();");
+            this.linhas.add("       conexao.close();");
+
+            this.linhas.add("   } catch (SQLException ex)  {");
+            this.linhas.add("       System.err.println(ex.getMessage());");
+
+            this.linhas.add("   }");
+
         this.linhas.add("}");
+        
         this.linhas.add("");// quebra de linha
         this.linhas.add("@Override");
         this.linhas.add("public ArrayList<" + classe + "Modelo"+ "> pesquisar("+ classe +"Modelo "+ 
                 this.tabela.getNomeEntidade() +"){");
+            this.linhas.add("   ArrayList<"+ classe +"Modelo"+
+                    "> resultadosConsulta = new ArrayList<"+ classe + "Modelo"+">();");
+
+            this.linhas.add("   try {");
+            this.linhas.add("       Connection conexao = this.bd.getConexao();");
+            this.linhas.add("       PreparedStatement sql = conexao.prepareStatement(");
+            this.linhas.add("       \"SELECT * FROM "+this.tabela.getNomeEntidade()+
+                    " WHERE " +this.tabela.getAtributosEntidade().get(0).getNomeAtributo() + 
+                    " = ?\");"
+            );
+            this.linhas.add("      sql.set"+
+                ((this.tabela.getAtributosEntidade().get(0).tipoToString().compareTo("Integer") == 0)? "Int" : 
+                this.tabela.getAtributosEntidade().get(0).tipoToString())
+                + "(1, " + this.tabela.getNomeEntidade() + ".get" +
+                this.tabela.getAtributosEntidade().get(0).getNomeAtributo()+ "());"
+            );
+            
+            this.linhas.add("       ResultSet resultado = sql.executeQuery();");
+            this.linhas.add("       resultadosConsulta = resultadoConsulta(resultado);");
+            this.linhas.add("       resultado.close();");
+            this.linhas.add("       sql.close();");
+            this.linhas.add("       conexao.close();");
+            this.linhas.add("   } catch (SQLException ex)  {");
+            this.linhas.add("       System.err.println(ex.getMessage());");
+            this.linhas.add("   }");
+            this.linhas.add("   return resultadosConsultas;");
+            this.linhas.add("}");
+            this.linhas.add("");// quebra de linha
+          
+        this.linhas.add("@Override");
+        this.linhas.add("public ArrayList<" + classe + "Modelo"+ "> imprimirTodos(){");
+    
+        this.linhas.add("   ArrayList<"+ classe +"Modelo"+
+                "> resultadosConsulta = new ArrayList<"+ classe + "Modelo"+">();");
         
+        this.linhas.add("   try {");
+        this.linhas.add("       Connection conexao = this.bd.getConexao();");
+        this.linhas.add("       PreparedStatement sql = conexao.prepareStatement(");
+        this.linhas.add("       \"SELECT * FROM "+this.tabela.getNomeEntidade()+"\");");
+        this.linhas.add("       ResultSet resultado = sql.executeQuery();");
+        this.linhas.add("       resultadosConsulta = resultadoConsulta(resultado);");
+        this.linhas.add("       resultado.close();");
+        this.linhas.add("       sql.close();");
+        this.linhas.add("       conexao.close();");
+        this.linhas.add("   } catch (SQLException ex)  {");
+        this.linhas.add("       System.err.println(ex.getMessage());");
+        this.linhas.add("   }");
+        this.linhas.add("   return resultadosConsultas;");
         this.linhas.add("}");
         this.linhas.add("");// quebra de linha
         this.linhas.add("@Override");
-        this.linhas.add("public ArrayList<" + classe + "Modelo"+ "> imprimirTodos(){");
+        this.linhas.add("public ArrayList<" + classe + "Modelo"+ "> ResultadoConsulta(ResultSet resposta){");
+        this.linhas.add("  ArrayList<"+ classe +"Modelo" + "> resultados = new ArrayList<"+
+                 classe +"Modelo"+ ">();"
+         );
+        this.linhas.add("  try {");
+        this.linhas.add("      while(resposta.next()) {");
+        this.linhas.add("           "+ classe +"Modelo"+" atual = new "+ classe +"Modelo"+"();");
+        for (MetadataAtributoModelo atributo : this.tabela.getAtributosEntidade()){
+            this.linhas.add("           atual.set" + atributo.getNomeAtributo() + "(resposta.get"+
+                ((atributo.tipoToString().compareTo("Integer") == 0)? "Int" : atributo.tipoToString())
+                      + "(\"" + atributo.getNomeAtributo()+ "\"));" 
+                );
+            
+        }
+        this.linhas.add("           resultados.add(atual);");
+        this.linhas.add("       }");
+        this.linhas.add("   } catch (SQLExcetion ex){");
+        this.linhas.add("       System.err.println(ex.getMessage());");
+        this.linhas.add("   }");
+        this.linhas.add("   resultados;");
+        this.linhas.add("}");
+        //fim da classe
+        this.linhas.add("}");
         
-        this.linhas.add("}");
-        this.linhas.add("");// quebra de linha
-                
-        this.linhas.add("}");
-         
         // salvar linhas no arquivo
         String nomeArquivo = classe + "DAO.java";
         this.manipulaArquivos.gravarNoFinalDoArquivoArray(

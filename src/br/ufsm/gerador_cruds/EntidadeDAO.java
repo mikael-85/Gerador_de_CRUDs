@@ -5,6 +5,7 @@
  */
 package br.ufsm.gerador_cruds;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -17,4 +18,5 @@ public interface EntidadeDAO<T> {
     public void remover (T obj);
     public ArrayList<T> pesquisar(T obj);
     public ArrayList<T> imprimirTodos(); //algum tipo collection, etc...
+    public ArrayList<T> resultadoConsulta(ResultSet obj);
 }
