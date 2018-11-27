@@ -57,7 +57,8 @@ public class MetadataAtributoModelo<T> {
     public String getValorString(){
         return String.valueOf(valor);
     }
- public String tipoToString(){
+    
+    public String tipoToString(){
         String tipo = "";
         if(this.valor instanceof String){
             tipo = "String";

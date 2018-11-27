@@ -15,7 +15,13 @@ public class Inicial {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Principal principal = new Principal();
-    }
-    
+        Metadata metadata;
+        ControladorClasses controladorClasses;
+
+        // Obter metadados do BD
+        metadata  = new Metadata();
+        controladorClasses  = new ControladorClasses(metadata.getTabelas());
+
+}
+
 }

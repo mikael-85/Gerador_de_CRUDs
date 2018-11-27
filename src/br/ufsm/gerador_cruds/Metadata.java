@@ -116,8 +116,8 @@ public class Metadata {
             
         }
     }
-    public Tipo converterTipo(String tipoVariavel, int tamanho){
-        Tipo novoTipo;
+    public Object converterTipo(String tipoVariavel, int tamanho){
+        Object novoTipo;
         if(
             tipoVariavel.compareToIgnoreCase("varchar") == 0 ||
             tipoVariavel.compareToIgnoreCase("char") == 0 ||
@@ -125,21 +125,27 @@ public class Metadata {
             tipoVariavel.compareToIgnoreCase("character varying") == 0 ||
             tipoVariavel.compareToIgnoreCase("text") == 0        
         ){
-            String valor = ""; 
-            novoTipo = new Tipo<String>(valor);
+            String valor = "";
+            novoTipo = valor;
         }else if(
             tipoVariavel.compareToIgnoreCase("integer") == 0 ||
             tipoVariavel.compareToIgnoreCase("int") == 0 ||
             tipoVariavel.contains("int")    
         ){
-            Integer valor = 0;
-            novoTipo = new Tipo<Integer>(valor);
+            if(tamanho <= 9){
+                Integer valor = 0;
+                novoTipo = valor;
+            }else{
+                Long valor = new Long(0);
+                novoTipo = valor;
+            }
+            
         }else if(tipoVariavel.compareToIgnoreCase("bigint") == 0){
             Long valor = new Long(0);
-            novoTipo = new Tipo<Long>(valor);
+            novoTipo = valor;
         }else{
             String valor = "";
-            novoTipo = new Tipo<String>(valor);
+            novoTipo = valor;
         }
         return novoTipo;
     }

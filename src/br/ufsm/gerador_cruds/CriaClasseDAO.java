@@ -42,17 +42,17 @@ public class CriaClasseDAO implements Runnable {
         
         String classe = this.tabela.getNomeEntidade();
         classe = classe.substring(0,1).toUpperCase().concat(classe.substring(1));
-        this.linhas.add("public class " + classe + "DAO implements EntidadeDAO<"+classe+"Modelo> (");
+        this.linhas.add("public class " + classe + "DAO implements EntidadeDAO<"+classe+"Modelo> {");
         this.linhas.add("private ConexaoBD bd;");
         this.linhas.add("private InputOutputTela tela;");
         this.linhas.add("");
-        this.linhas.add("public " + classe +"DAO( inputOutputTela tela){");
-        this.linhas.add("   this.bd = new ConexaoBD");
+        this.linhas.add("public " + classe +"DAO( InputOutputTela tela){");
+        this.linhas.add("   this.bd = new ConexaoBD();");
         this.linhas.add("   this.tela = tela;");
         this.linhas.add("}");// fim da classe
         this.linhas.add("");// quebra de linha                
         this.linhas.add("@Override");
-        this.linhas.add("public void cadastrar{" + classe + "Modelo "+this.tabela.getNomeEntidade() + "){");
+        this.linhas.add("public void cadastrar(" + classe + "Modelo "+this.tabela.getNomeEntidade() + "){");
         
         this.linhas.add("   try {");
             this.linhas.add("       Connection conexao = this.bd.getConexao();");
@@ -93,7 +93,7 @@ public class CriaClasseDAO implements Runnable {
         this.linhas.add("}");
         this.linhas.add("");// quebra de linha
         this.linhas.add("@Override");
-        this.linhas.add("public void alterar{" + classe + "Modelo "+this.tabela.getNomeEntidade() + "){");
+        this.linhas.add("public void alterar(" + classe + "Modelo "+this.tabela.getNomeEntidade() + "){");
         //colado
         this.linhas.add("   try {");
             this.linhas.add("       Connection conexao = this.bd.getConexao();");
@@ -147,7 +147,7 @@ public class CriaClasseDAO implements Runnable {
         this.linhas.add("");// quebra de linha
      
         this.linhas.add("@Override");
-        this.linhas.add("public void remover{" + classe + "Modelo "+this.tabela.getNomeEntidade() + "){");
+        this.linhas.add("public void remover(" + classe + "Modelo "+this.tabela.getNomeEntidade() + "){");
             this.linhas.add("   try {");
             this.linhas.add("       Connection conexao = this.bd.getConexao();");
             this.linhas.add("       PreparedStatement sql = conexao.prepareStatement(");
@@ -204,7 +204,7 @@ public class CriaClasseDAO implements Runnable {
             this.linhas.add("   } catch (SQLException ex)  {");
             this.linhas.add("       System.err.println(ex.getMessage());");
             this.linhas.add("   }");
-            this.linhas.add("   return resultadosConsultas;");
+            this.linhas.add("   return resultadosConsulta;");
             this.linhas.add("}");
             this.linhas.add("");// quebra de linha
           
@@ -226,11 +226,11 @@ public class CriaClasseDAO implements Runnable {
         this.linhas.add("   } catch (SQLException ex)  {");
         this.linhas.add("       System.err.println(ex.getMessage());");
         this.linhas.add("   }");
-        this.linhas.add("   return resultadosConsultas;");
+        this.linhas.add("   return resultadosConsulta;");
         this.linhas.add("}");
         this.linhas.add("");// quebra de linha
         this.linhas.add("@Override");
-        this.linhas.add("public ArrayList<" + classe + "Modelo"+ "> ResultadoConsulta(ResultSet resposta){");
+        this.linhas.add("public ArrayList<" + classe + "Modelo"+ "> resultadoConsulta(ResultSet resposta){");
         this.linhas.add("  ArrayList<"+ classe +"Modelo" + "> resultados = new ArrayList<"+
                  classe +"Modelo"+ ">();"
          );
@@ -246,10 +246,10 @@ public class CriaClasseDAO implements Runnable {
         }
         this.linhas.add("           resultados.add(atual);");
         this.linhas.add("       }");
-        this.linhas.add("   } catch (SQLExcetion ex){");
+        this.linhas.add("   } catch (SQLException ex){");
         this.linhas.add("       System.err.println(ex.getMessage());");
         this.linhas.add("   }");
-        this.linhas.add("   resultados;");
+        this.linhas.add("   return resultados;");
         this.linhas.add("}");
         //fim da classe
         this.linhas.add("}");

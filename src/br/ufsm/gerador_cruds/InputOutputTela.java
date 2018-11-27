@@ -47,11 +47,11 @@ public class InputOutputTela<T> {
     }
     
     //mensagens
-    public void sucessoCadastro(String nomeEntidade){
+    public void sucessoCadastro(){
         System.out.println(nomeEntidade + "Cadastrado(a) com sucesso!");
     }
            
-    public void sucessoAlteracao(String nomeEntidade){
+    public void sucessoAlteracao(){
         System.out.println(nomeEntidade + "alterado(a) com sucesso!");
     }
     
@@ -70,7 +70,7 @@ public class InputOutputTela<T> {
     }
     
     public void exibe(String conteudo){
-        System.out.println("conteudo");
+        System.out.println(conteudo);
     }
             
     public void imprimirList(ArrayList<String> linhas){

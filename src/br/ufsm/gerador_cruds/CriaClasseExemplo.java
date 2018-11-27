@@ -36,12 +36,18 @@ public class CriaClasseExemplo implements Runnable {
     
     String classe = this.tabela.getNomeEntidade();
     classe = classe.substring(0,1).toUpperCase().concat(classe.substring(1));
-    this.linhas.add("public class " + classe + "Exemplos implements EntidadeExemplo(");
-    this.linhas.add("private InputOutputTela tela = new InputOutputTela"+ classe+ "Modelo "
-        +">(\"" + classe + "\";");
-    this.linhas.add("private " + classe + "DAO dao = new "+ classe + "DAO(tela);");
-    
+    this.linhas.add("public class " + classe + "Exemplo implements EntidadeExemplo{");
+    this.linhas.add("private InputOutputTela tela;");
+    this.linhas.add("private " + classe + "DAO dao ;");
     this.linhas.add("");
+    
+    this.linhas.add("public " + classe + "Exemplo(InputOutputTela tela){");
+        this.linhas.add("   this.tela = tela;");
+        this.linhas.add("   this.dao = new "+ classe + "DAO(tela);");
+    this.linhas.add("}");
+    this.linhas.add("");
+    
+    
    //---------------------------------------------- 
     this.linhas.add("@Override");
     this.linhas.add("public void cadastrar(){");
@@ -65,13 +71,16 @@ public class CriaClasseExemplo implements Runnable {
         this.linhas.add("   this.tela.exibe(\"Alterar " + classe + ":\");");
         this.linhas.add("   consulta = pesquisarInterna();");
         this.linhas.add("   if(consulta.size() == 1){");
-        this.linhas.add("   this.tela.imprimirArrayList(consulta);");
-        this.linhas.add("   this.tela.exibe(\"Digite os dados a seguir: \");");
+        this.linhas.add("       this.tela.imprimirArrayList(consulta);");
+        this.linhas.add("       this.tela.exibe(\"Digite os dados a seguir: \");");
         for (MetadataAtributoModelo atributo : this.tabela.getAtributosEntidade()){
-            this.linhas.add("   this.tela.exibe(\""+ atributo.getNomeAtributo() + ": \");");
-            this.linhas.add("   consulta.get(0).set" + atributo.getNomeAtributo() + "("
+            //quando não for o primeiro atributo vai listar:
+            if(!this.tabela.getAtributosEntidade().get(0).equals(atributo)){
+                this.linhas.add("   this.tela.exibe(\""+ atributo.getNomeAtributo() + ": \");");
+                this.linhas.add("   consulta.get(0).set" + atributo.getNomeAtributo() + "("
                     + "this.tela.le" + atributo.tipoToString() + "());"
-                    );
+                );
+            }    
         }
         
         this.linhas.add("       this.dao.alterar(consulta.get(0));");
@@ -80,7 +89,7 @@ public class CriaClasseExemplo implements Runnable {
         this.linhas.add("   }");
         this.linhas.add("}");
     
-    this.linhas.add("}");
+   
     this.linhas.add("");
     //----------------------------------------------
     this.linhas.add("@Override");
@@ -94,7 +103,7 @@ public class CriaClasseExemplo implements Runnable {
         this.linhas.add("   this.tela.exibe(\"Erro: " + classe + " nao encontrado(a)!\");");
         this.linhas.add("   }");
         this.linhas.add("}");
-    this.linhas.add("}");
+    
     this.linhas.add("");
     //----------------------------------------------
     this.linhas.add("public ArrayList<"+classe+"Modelo> pesquisarInterna(){");

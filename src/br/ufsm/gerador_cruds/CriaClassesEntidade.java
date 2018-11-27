@@ -12,6 +12,8 @@ import java.util.ArrayList;
  *
  * @author Mikael
  */
+
+//UTILIZANDO Threads PARA GERAR ARQUIVOS. (T4)
 public class CriaClassesEntidade implements Runnable {
     MetadataEntidadeModelo tabela;
     ArrayList<String> cabecalho;
@@ -68,11 +70,20 @@ public class CriaClassesEntidade implements Runnable {
         );
         Thread threadCriaExemplo = new Thread(classeExemplo);
         
+// construindo classe principal...
+         CriaClassePrincipal classePrincipal = new CriaClassePrincipal(
+                this.tabela, 
+                this.cabecalho,
+                this.manipulaArquivos
+        );
+         
+        Thread threadCriaPrincipal = new Thread(classePrincipal);
         
         // Executando as Threads
         threadCriaModelo.start();
         threadCriaDAO.start();
         threadCriaExemplo.start();
+        threadCriaPrincipal.start();
     }    
 
 }

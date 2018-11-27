@@ -9,7 +9,7 @@ package br.ufsm.gerador_cruds;
  *
  * @author Mikael
  */
-public interface EntendidadeExemplo {
+public interface EntidadeExemplo {
     public void cadastrar();
     public void alterar();
     public void remover();
